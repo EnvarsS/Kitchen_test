@@ -13,6 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        ConnectionService.connect();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Kitchen-View.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         StageService.getInstance().setStage(stage);
@@ -22,8 +23,6 @@ public class Main extends Application {
         StageService.getInstance().getStage().setResizable(false);
 
         stage.show();
-
-        ConnectionService.connect();
     }
 
     public static void main(String[] args) {

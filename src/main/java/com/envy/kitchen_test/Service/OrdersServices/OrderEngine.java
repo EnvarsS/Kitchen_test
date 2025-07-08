@@ -1,6 +1,7 @@
 package com.envy.kitchen_test.Service.OrdersServices;
 
 import com.envy.kitchen_test.Controller.KitchenController;
+import com.envy.kitchen_test.Model.Order;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -10,9 +11,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class OrderEngine implements Runnable {
-    private static final HashMap<Thread, VBox> VBOX_MAP = new HashMap<>();
 
-    private static final ExecutorService ordersListExecutor = Executors.newFixedThreadPool(5);
+    private static final ExecutorService ordersListExecutor = Executors.newFixedThreadPool(5, r -> {
+        Thread thread = new Thread(r);
+        thread.setDaemon(true);
+        return thread;
+    });
 
     private static final OrdersGeneratorService ordersGeneratorService = new OrdersGeneratorService();
 
@@ -25,18 +29,15 @@ public class OrderEngine implements Runnable {
     @Override
     public void run() {
         while (true) {
-            System.out.println("OrderEngine " + Thread.currentThread().getName());
-            ordersGeneratorService.generateRandomOrder(parentHBox);
+            Order order = ordersGeneratorService.generateRandomOrder();
+
+            ordersListExecutor.submit(new FormattedOrder(parentHBox, order));
 
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextInt(4000, 8000));
+                Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 3000));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
-    }
-
-    public static ExecutorService getOrderListExecutor() {
-        return ordersListExecutor;
     }
 }

@@ -9,6 +9,7 @@ module com.envy.kitchen_test {
 
     exports com.envy.kitchen_test;
     exports com.envy.kitchen_test.Controller;
+    exports com.envy.kitchen_test.Model;
     opens com.envy.kitchen_test to javafx.fxml;
     opens com.envy.kitchen_test.Controller to javafx.fxml;
 }

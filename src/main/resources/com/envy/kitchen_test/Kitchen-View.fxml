@@ -1,14 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.envy.kitchen_test.Controller.KitchenController">
-   <children>
-      <AnchorPane fx:id="mainAnchorPane" prefHeight="729.0" prefWidth="1280.0">
-         <children>
-            <HBox fx:id="ordersHBox" prefHeight="300.0" prefWidth="1280.0" spacing="10.0" />
-         </children>
-      </AnchorPane>
-   </children>
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.envy.kitchen_test.Controller.KitchenController">
+    <children>
+        <AnchorPane fx:id="mainAnchorPane" prefHeight="729.0" prefWidth="1280.0">
+            <children>
+                <HBox fx:id="ordersHBox" fillHeight="false" prefHeight="300.0" prefWidth="1280.0" spacing="10.0">
+                    <padding>
+                        <Insets left="10.0" top="10.0"/>
+                    </padding>
+                </HBox>
+                <VBox fx:id="TomatoVBox" layoutX="43.0" layoutY="327.0" prefHeight="151.0" prefWidth="130.0"
+                      spacing="10.0" styleClass="order-box" stylesheets="@style/OrderMenuStyle.css">
+                    <children>
+                        <Label alignment="TOP_CENTER" contentDisplay="CENTER" graphicTextGap="5.0" prefHeight="30.0"
+                               prefWidth="130.0" text="Tomato" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+                            <font>
+                                <Font name="System Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Button mnemonicParsing="false" styleClass="order-button" text="Choose"/>
+                        <ProgressBar prefWidth="200.0" progress="0.0"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                </VBox>
+                <VBox fx:id="BreadVBox" layoutX="134.0" layoutY="531.0" prefHeight="151.0" prefWidth="130.0"
+                      spacing="10.0" styleClass="order-box" stylesheets="@style/OrderMenuStyle.css">
+                    <children>
+                        <Label alignment="TOP_CENTER" contentDisplay="CENTER" graphicTextGap="5.0" prefHeight="30.0"
+                               prefWidth="130.0" text="Bread" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+                            <font>
+                                <Font name="System Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Button mnemonicParsing="false" styleClass="order-button" text="Choose"/>
+                        <ProgressBar prefWidth="200.0" progress="0.0"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                </VBox>
+                <VBox fx:id="CheeseVBox" layoutX="230.0" layoutY="325.0" prefHeight="151.0" prefWidth="130.0"
+                      spacing="10.0" styleClass="order-box" stylesheets="@style/OrderMenuStyle.css">
+                    <children>
+                        <Label alignment="TOP_CENTER" contentDisplay="CENTER" graphicTextGap="5.0" prefHeight="30.0"
+                               prefWidth="130.0" text="Cheese" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+                            <font>
+                                <Font name="System Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Button mnemonicParsing="false" styleClass="order-button" text="Choose"/>
+                        <ProgressBar prefWidth="200.0" progress="0.0"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                </VBox>
+                <VBox fx:id="LetucceVBox" layoutX="887.0" layoutY="326.0" prefHeight="151.0" prefWidth="130.0"
+                      spacing="10.0" styleClass="order-box" stylesheets="@style/OrderMenuStyle.css">
+                    <children>
+                        <Label alignment="TOP_CENTER" contentDisplay="CENTER" graphicTextGap="5.0" prefHeight="30.0"
+                               prefWidth="130.0" text="Lettuce" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+                            <font>
+                                <Font name="System Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Button mnemonicParsing="false" styleClass="order-button" text="Choose"/>
+                        <ProgressBar prefWidth="200.0" progress="0.0"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                </VBox>
+                <VBox fx:id="MeatVBox" layoutX="1088.0" layoutY="324.0" prefHeight="151.0" prefWidth="130.0"
+                      spacing="10.0" styleClass="order-box" stylesheets="@style/OrderMenuStyle.css">
+                    <children>
+                        <Label alignment="TOP_CENTER" contentDisplay="CENTER" graphicTextGap="5.0" prefHeight="30.0"
+                               prefWidth="130.0" text="Meat" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+                            <font>
+                                <Font name="System Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Button mnemonicParsing="false" styleClass="order-button" text="Choose"/>
+                        <ProgressBar prefWidth="200.0" progress="0.0"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                </VBox>
+                <VBox fx:id="BoardVBox" layoutX="496.0" layoutY="336.0" prefHeight="300.0" prefWidth="300.0"
+                      spacing="10.0" styleClass="board-box" stylesheets="@style/OrderMenuStyle.css">
+                    <children>
+                        <Label alignment="TOP_CENTER" contentDisplay="CENTER" graphicTextGap="5.0" prefHeight="30.0"
+                               prefWidth="130.0" text="Board" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+                            <font>
+                                <Font name="System Bold" size="24.0"/>
+                            </font>
+                        </Label>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                            <content>
+                                <VBox fx:id="ingredientsContainer" spacing="5"/>
+                            </content>
+                        </ScrollPane>
+                        <Button mnemonicParsing="false" styleClass="order-button" text="Submit"/>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

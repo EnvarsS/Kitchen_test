@@ -15,7 +15,6 @@ public class FormattedOrder implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("New Formatted Order " + Thread.currentThread().getName());
         OrderView orderView = new OrderView(this.order);
         Platform.runLater(() -> parentHBox.getChildren().add(orderView));
 

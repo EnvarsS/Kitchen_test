@@ -8,14 +8,15 @@ import org.hibernate.query.NativeQuery;
 import java.util.ArrayList;
 
 public class OrderConverter {
-    public static Order getOrderById(int id){
-        System.out.println("OrderConverter " + Thread.currentThread().getName());
+    public static Order getOrderById(int id) {
         Dish dish;
         ArrayList<Ingredient> ingredients;
-        try(Session session = ConnectionService.getSessionFactory().openSession()){
+        try (Session session = ConnectionService.getSessionFactory().openSession()) {
             NativeQuery<Dish> query = session.createNativeQuery("SELECT * FROM Dishes WHERE id = :id", Dish.class);
             query.setParameter("id", id);
             dish = query.uniqueResult();
+
+            System.out.println("Dish " + dish);
             NativeQuery<Ingredient> query2 = session.createNativeQuery("""
                     SELECT ingredients.* FROM ingredients
                     JOIN dishes_ingredients ON ingredients.id = dishes_ingredients.ingredient_id
@@ -24,7 +25,6 @@ public class OrderConverter {
             query2.setParameter("id", id);
             ingredients = (ArrayList<Ingredient>) query2.getResultList();
         }
-
         return new Order(dish, ingredients);
     }
 }

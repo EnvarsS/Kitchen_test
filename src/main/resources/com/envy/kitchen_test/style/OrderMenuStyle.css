@@ -1,5 +1,5 @@
 .order-box {
-    -fx-padding: 10;
+    -fx-padding: 20;
     -fx-background-color: #fdfdfd;
     -fx-border-color: #cccccc;
     -fx-border-radius: 10;
@@ -23,4 +23,36 @@
 .ingredient {
     -fx-text-fill: #666;
     -fx-font-size: 13px;
+}
+
+.order-button {
+    -fx-background-color: #666;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-border-color: transparent;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+}
+
+.order-button:hover {
+    -fx-background-color: #456;
+}
+
+.order-button:pressed {
+    -fx-background-color: #130e2a;
+}
+
+.board-box{
+    -fx-padding: 20;
+    -fx-background-color: #fdfdfd;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 3);
+    -fx-alignment: top-center;
 }

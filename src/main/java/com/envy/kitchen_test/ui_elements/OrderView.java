@@ -23,6 +23,7 @@ public class OrderView extends VBox {
             ing.getStyleClass().add("ingredient");
             ingredientsBox.getChildren().add(ing);
         }
+        setMaxHeight(50);
 
         getChildren().addAll(nameLabel, ingredientsBox);
     }

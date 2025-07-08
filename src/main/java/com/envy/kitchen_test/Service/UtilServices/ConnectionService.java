@@ -19,6 +19,7 @@ public class ConnectionService {
         }
         Configuration config = new Configuration();
         config.addProperties(props);
+        System.out.println(props);
         sessionFactory = config.buildSessionFactory();
     }
     public static SessionFactory getSessionFactory() {
@@ -26,11 +27,9 @@ public class ConnectionService {
     }
 
     public static void closeConnection() {
-        try {
             sessionFactory.close();
             sessionFactory = null;
-        } catch (Exception e) {
 
-        }
+
     }
 }

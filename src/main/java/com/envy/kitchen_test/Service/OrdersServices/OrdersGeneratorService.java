@@ -12,12 +12,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class OrdersGeneratorService {
-    public synchronized void generateRandomOrder(HBox parentHBox) {
-        System.out.println("OrderGenerator " + Thread.currentThread().getName());
-        Order order = OrderConverter.getOrderById(getRandomDishId());
-
-        OrderEngine.getOrderListExecutor().submit(new FormattedOrder(parentHBox, order));
-
+    public synchronized Order generateRandomOrder() {
+        return OrderConverter.getOrderById(getRandomDishId());
     }
 
     private static int getRandomDishId() {
