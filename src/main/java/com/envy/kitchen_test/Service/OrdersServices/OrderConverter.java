@@ -4,7 +4,6 @@ import com.envy.kitchen_test.Model.*;
 import com.envy.kitchen_test.Service.UtilServices.ConnectionService;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
-import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 
@@ -14,7 +13,7 @@ public class OrderConverter {
         Dish dish;
         ArrayList<Ingredient> ingredients;
         try(Session session = ConnectionService.getSessionFactory().openSession()){
-            Query<Dish> query = session.createQuery("from Dish where id = :id", Dish.class);
+            NativeQuery<Dish> query = session.createNativeQuery("SELECT * FROM Dishes WHERE id = :id", Dish.class);
             query.setParameter("id", id);
             dish = query.uniqueResult();
             NativeQuery<Ingredient> query2 = session.createNativeQuery("""
@@ -22,6 +21,7 @@ public class OrderConverter {
                     JOIN dishes_ingredients ON ingredients.id = dishes_ingredients.ingredient_id
                     WHERE dish_id = :id
                     """, Ingredient.class);
+            query2.setParameter("id", id);
             ingredients = (ArrayList<Ingredient>) query2.getResultList();
         }
 
