@@ -1,5 +1,6 @@
 package com.envy.kitchen_test;
 
+import com.envy.kitchen_test.Service.UtilServices.ConnectionService;
 import com.envy.kitchen_test.Service.UtilServices.StageService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,8 @@ public class Main extends Application {
         StageService.getInstance().getStage().setResizable(false);
 
         stage.show();
+
+        ConnectionService.connect();
     }
 
     public static void main(String[] args) {

@@ -23,7 +23,7 @@ public class OrdersGeneratorService {
     private static int getRandomDishId() {
         ArrayList<Integer> dishesId;
         try (Session session = ConnectionService.getSessionFactory().openSession()) {
-            NativeQuery<Integer> query = session.createNativeQuery("SELECT * FROM dishes", Integer.class);
+            NativeQuery<Integer> query = session.createNativeQuery("SELECT id FROM dishes", Integer.class);
             dishesId = (ArrayList<Integer>) query.getResultList();
         }
         return dishesId.get(ThreadLocalRandom.current().nextInt(dishesId.size()));

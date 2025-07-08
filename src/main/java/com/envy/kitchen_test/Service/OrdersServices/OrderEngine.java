@@ -29,7 +29,7 @@ public class OrderEngine implements Runnable {
             ordersGeneratorService.generateRandomOrder(parentHBox);
 
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextInt(4, 8));
+                Thread.sleep(ThreadLocalRandom.current().nextInt(4000, 8000));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class ConnectionService {
     private static SessionFactory sessionFactory;
-    public void connect(){
+    public static void connect(){
         Properties props = new Properties();
         try {
             InputStream input = ConnectionService.class.getClassLoader().getResourceAsStream("hibernate.properties");
