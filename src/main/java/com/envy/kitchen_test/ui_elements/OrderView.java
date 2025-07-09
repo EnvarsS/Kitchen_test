@@ -28,4 +28,7 @@ public class OrderView extends VBox {
         getChildren().addAll(nameLabel, ingredientsBox);
     }
 
+    public Order getOrder() {
+        return order;
+    }
 }

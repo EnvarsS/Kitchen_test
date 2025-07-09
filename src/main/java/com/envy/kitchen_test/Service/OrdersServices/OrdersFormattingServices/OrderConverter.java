@@ -1,4 +1,4 @@
-package com.envy.kitchen_test.Service.OrdersServices;
+package com.envy.kitchen_test.Service.OrdersServices.OrdersFormattingServices;
 
 import com.envy.kitchen_test.Model.*;
 import com.envy.kitchen_test.Service.UtilServices.ConnectionService;

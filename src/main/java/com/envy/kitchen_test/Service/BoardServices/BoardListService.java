@@ -34,4 +34,5 @@ public class BoardListService {
     public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
+
 }

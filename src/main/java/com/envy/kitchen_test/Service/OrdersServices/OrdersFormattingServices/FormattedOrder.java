@@ -1,6 +1,7 @@
-package com.envy.kitchen_test.Service.OrdersServices;
+package com.envy.kitchen_test.Service.OrdersServices.OrdersFormattingServices;
 
 import com.envy.kitchen_test.Model.Order;
+import com.envy.kitchen_test.Service.OrdersServices.OrdersCompletingServices.OrdersListService;
 import com.envy.kitchen_test.ui_elements.OrderView;
 import javafx.application.Platform;
 import javafx.scene.layout.HBox;
@@ -19,11 +20,13 @@ public class FormattedOrder implements Runnable {
         Platform.runLater(() -> parentHBox.getChildren().add(orderView));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(8000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Platform.runLater(() -> parentHBox.getChildren().remove(orderView));
+            System.out.println("thread " + Thread.currentThread().getName() + " interrupted");
         }
 
         Platform.runLater(() -> parentHBox.getChildren().remove(orderView));
+        OrdersListService.getInstance().deleteRunningOrder(order);
     }
 }

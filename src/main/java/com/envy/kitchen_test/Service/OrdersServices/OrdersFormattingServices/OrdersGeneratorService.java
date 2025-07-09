@@ -1,9 +1,6 @@
-package com.envy.kitchen_test.Service.OrdersServices;
+package com.envy.kitchen_test.Service.OrdersServices.OrdersFormattingServices;
 
 import com.envy.kitchen_test.Model.Order;
-import com.envy.kitchen_test.ui_elements.OrderView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import org.hibernate.Session;
 import com.envy.kitchen_test.Service.UtilServices.ConnectionService;
 import org.hibernate.query.NativeQuery;

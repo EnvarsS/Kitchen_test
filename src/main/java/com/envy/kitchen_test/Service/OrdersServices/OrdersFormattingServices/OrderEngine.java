@@ -1,13 +1,12 @@
-package com.envy.kitchen_test.Service.OrdersServices;
+package com.envy.kitchen_test.Service.OrdersServices.OrdersFormattingServices;
 
-import com.envy.kitchen_test.Controller.KitchenController;
 import com.envy.kitchen_test.Model.Order;
+import com.envy.kitchen_test.Service.OrdersServices.OrdersCompletingServices.OrdersListService;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
-import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class OrderEngine implements Runnable {
@@ -31,10 +30,13 @@ public class OrderEngine implements Runnable {
         while (true) {
             Order order = ordersGeneratorService.generateRandomOrder();
 
-            ordersListExecutor.submit(new FormattedOrder(parentHBox, order));
+            Future<?> future =  ordersListExecutor.submit(new FormattedOrder(parentHBox, order));
+            OrdersListService.getInstance().addRunningOrder(order, future);
+
+            System.out.println("Added order" + order + ": " + future);
 
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 3000));
+                Thread.sleep(ThreadLocalRandom.current().nextInt(5000, 7000));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
