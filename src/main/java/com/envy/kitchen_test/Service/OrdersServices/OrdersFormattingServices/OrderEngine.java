@@ -33,8 +33,6 @@ public class OrderEngine implements Runnable {
             Future<?> future =  ordersListExecutor.submit(new FormattedOrder(parentHBox, order));
             OrdersListService.getInstance().addRunningOrder(order, future);
 
-            System.out.println("Added order" + order + ": " + future);
-
             try {
                 Thread.sleep(ThreadLocalRandom.current().nextInt(5000, 7000));
             } catch (InterruptedException e) {

@@ -1,6 +1,7 @@
 package com.envy.kitchen_test.Service.OrdersServices.OrdersCompletingServices;
 
 import com.envy.kitchen_test.Model.Order;
+import com.envy.kitchen_test.Service.BoardServices.BoardListService;
 import com.envy.kitchen_test.Service.GameStatisticServices.CountingStatistic;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,11 +28,14 @@ public class OrdersListService {
     }
 
     public void deleteRunningOrder(Order order) {
+        if(order == null) {
+            System.out.println("order is null. There's no dish with this receipt");
+            return;
+        }
 
-        System.out.println("Deleting order " + order);
         Future<?> future = runningOrders.remove(order);
+        BoardListService.getInstance().clearIngredients();
 
-        System.out.println(future);
         try {
             future.cancel(true);
             CountingStatistic.getInstance().increment();

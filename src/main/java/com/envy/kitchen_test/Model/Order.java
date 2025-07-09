@@ -32,23 +32,32 @@ public class Order {
         return ingredients;
     }
 
+    public Dish getDish() {
+        return dish;
+    }
+
+    public boolean compareOrder(Order order) {
+        return Objects.equals(dish, order.dish) && Objects.equals(ingredients, order.ingredients);
+    }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Objects.equals(dish, order.dish) && Objects.equals(ingredients, order.ingredients);
+        return id == order.id && Objects.equals(dish, order.dish) && Objects.equals(ingredients, order.ingredients);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dish, ingredients);
+        // Include id in the hash code calculation
+        return Objects.hash(id, dish, ingredients);
     }
 
     @Override
     public String toString() {
         return "Order{" +
-               "dish=" + dish +
+               "id=" + id +
+               ", dish=" + dish +
                ", ingredients=" + ingredients +
                '}';
     }

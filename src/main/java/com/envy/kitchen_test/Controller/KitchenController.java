@@ -1,6 +1,7 @@
 package com.envy.kitchen_test.Controller;
 
 
+import com.envy.kitchen_test.Service.BoardServices.CompleteDishService;
 import com.envy.kitchen_test.Service.IngredientsServices.IngredientChooseHandleService;
 import com.envy.kitchen_test.Service.OrdersServices.OrdersFormattingServices.OrderEngine;
 import javafx.fxml.FXML;
@@ -57,6 +58,7 @@ public class KitchenController implements Initializable {
         ArrayList<VBox> vboxList = new ArrayList<>(List.of(TomatoVBox, BreadVBox, CheeseVBox, LetucceVBox, MeatVBox));
         IngredientChooseHandleService.getInstance().initializeButtons(vboxList, BoardVBox);
 
+        CompleteDishService.getInstance().initiateDishSubmitButton(BoardVBox);
     }
 
 }
