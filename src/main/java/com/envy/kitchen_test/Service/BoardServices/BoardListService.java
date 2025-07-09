@@ -10,7 +10,7 @@ public class BoardListService {
 
     private static BoardListService instance;
 
-    private final Set<Ingredient> ingredients = new HashSet<>();
+    private final ArrayList<Ingredient> ingredients = new ArrayList<>();
 
     public static BoardListService getInstance() {
         if(instance == null) {
@@ -33,7 +33,7 @@ public class BoardListService {
         ingredients.clear();
     }
 
-    public Set<Ingredient> getIngredients() {
+    public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
 

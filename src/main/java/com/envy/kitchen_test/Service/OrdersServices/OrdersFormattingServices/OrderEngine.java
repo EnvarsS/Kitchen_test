@@ -27,6 +27,7 @@ public class OrderEngine implements Runnable {
 
     @Override
     public void run() {
+
         while (true) {
             Order order = ordersGeneratorService.generateRandomOrder();
 

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class OrderConverter {
     public static Order getOrderById(int id) {
         Dish dish;
-        Set<Ingredient> ingredients;
+        ArrayList<Ingredient> ingredients;
         try (Session session = ConnectionService.getSessionFactory().openSession()) {
             NativeQuery<Dish> query = session.createNativeQuery("SELECT * FROM Dishes WHERE id = :id", Dish.class);
             query.setParameter("id", id);
@@ -25,7 +25,7 @@ public class OrderConverter {
                     WHERE dish_id = :id
                     """, Ingredient.class);
             query2.setParameter("id", id);
-            ingredients = (Set<Ingredient>) query2.getResultStream().collect(Collectors.toSet());
+            ingredients = (ArrayList<Ingredient>) query2.getResultList();
         }
         return new Order(dish, ingredients);
     }

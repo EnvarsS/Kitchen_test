@@ -27,9 +27,10 @@ public class CompleteDishService {
         ScrollPane boardScrollPane = (ScrollPane) boardVBox.getChildren().get(1);
 
         boardSubmitButton.setOnAction(e -> {
-            Set<Ingredient> boardIngredients = BoardListService.getInstance().getIngredients();
+            ArrayList<Ingredient> boardIngredients = BoardListService.getInstance().getIngredients();
             VBox container = (VBox) boardScrollPane.getContent();
             container.getChildren().clear();
+            BoardListService.getInstance().clearIngredients();
 
             Order currentOrder = OrdersFormatterFabric.getOrderByIngredients(boardIngredients);
 

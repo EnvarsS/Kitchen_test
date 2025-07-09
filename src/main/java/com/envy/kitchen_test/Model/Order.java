@@ -11,12 +11,10 @@ public class Order {
 
     private static AtomicInteger idCounter = new AtomicInteger(0);
 
-    private int id;
     private Dish dish;
-    private Set<Ingredient> ingredients;
+    private ArrayList<Ingredient> ingredients;
 
-    public Order(Dish dish, Set<Ingredient> ingredients) {
-        this.id = idCounter.getAndIncrement();
+    public Order(Dish dish, ArrayList<Ingredient> ingredients) {
         this.dish = dish;
         this.ingredients = ingredients;
     }
@@ -29,7 +27,7 @@ public class Order {
         return (ArrayList<String>) ingredients.stream().map(Ingredient::getName).collect(Collectors.toList());
     }
 
-    public Set<Ingredient> getIngredientsAsSet() {
+    public ArrayList<Ingredient> getIngredientsAsSet() {
         return ingredients;
     }
 

@@ -41,9 +41,6 @@ public class OrdersListService {
         return;
     }
 
-    // Only clear ingredients if this thread successfully removed the order
-    BoardListService.getInstance().clearIngredients();
-
     try {
         future.cancel(true);
         CountingStatistic.getInstance().increment();
