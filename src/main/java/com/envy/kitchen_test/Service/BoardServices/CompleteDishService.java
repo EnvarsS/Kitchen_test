@@ -28,13 +28,12 @@ public class CompleteDishService {
 
         boardSubmitButton.setOnAction(e -> {
             Set<Ingredient> boardIngredients = BoardListService.getInstance().getIngredients();
+            VBox container = (VBox) boardScrollPane.getContent();
+            container.getChildren().clear();
 
             Order currentOrder = OrdersFormatterFabric.getOrderByIngredients(boardIngredients);
 
             OrdersListService.getInstance().deleteRunningOrder(currentOrder);
-
-            VBox container = (VBox) boardScrollPane.getContent();
-            container.getChildren().clear();
         });
     }
 

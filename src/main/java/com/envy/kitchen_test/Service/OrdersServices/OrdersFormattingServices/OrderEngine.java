@@ -34,7 +34,7 @@ public class OrderEngine implements Runnable {
             OrdersListService.getInstance().addRunningOrder(order, future);
 
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextInt(3000, 6000));
+                Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 3000));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

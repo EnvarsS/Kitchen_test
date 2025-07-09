@@ -20,7 +20,7 @@ public class FormattedOrder implements Runnable {
         Platform.runLater(() -> parentHBox.getChildren().add(orderView));
 
         try {
-            for(int i = 0; i < 80; i++){
+            for(int i = 0; i < 100; i++){
                 Thread.sleep(100);
             }
         } catch (InterruptedException e) {
