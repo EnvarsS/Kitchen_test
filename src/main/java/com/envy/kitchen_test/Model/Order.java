@@ -3,6 +3,7 @@ package com.envy.kitchen_test.Model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -12,9 +13,9 @@ public class Order {
 
     private int id;
     private Dish dish;
-    private ArrayList<Ingredient> ingredients;
+    private Set<Ingredient> ingredients;
 
-    public Order(Dish dish, ArrayList<Ingredient> ingredients) {
+    public Order(Dish dish, Set<Ingredient> ingredients) {
         this.id = idCounter.getAndIncrement();
         this.dish = dish;
         this.ingredients = ingredients;
@@ -28,37 +29,21 @@ public class Order {
         return (ArrayList<String>) ingredients.stream().map(Ingredient::getName).collect(Collectors.toList());
     }
 
-    public ArrayList<Ingredient> getIngredientsAsList() {
+    public Set<Ingredient> getIngredientsAsSet() {
         return ingredients;
-    }
-
-    public Dish getDish() {
-        return dish;
-    }
-
-    public boolean compareOrder(Order order) {
-        return Objects.equals(dish, order.dish) && Objects.equals(ingredients, order.ingredients);
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.id && Objects.equals(dish, order.dish) && Objects.equals(ingredients, order.ingredients);
+        // Remove id from comparison - only compare dish and ingredients
+        return Objects.equals(dish, order.dish) && Objects.equals(ingredients, order.ingredients);
     }
 
     @Override
     public int hashCode() {
-        // Include id in the hash code calculation
-        return Objects.hash(id, dish, ingredients);
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-               "id=" + id +
-               ", dish=" + dish +
-               ", ingredients=" + ingredients +
-               '}';
+        // Remove id from hash code calculation
+        return Objects.hash(dish, ingredients);
     }
 }

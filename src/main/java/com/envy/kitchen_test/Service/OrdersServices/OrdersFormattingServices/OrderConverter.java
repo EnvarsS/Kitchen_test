@@ -6,11 +6,13 @@ import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class OrderConverter {
     public static Order getOrderById(int id) {
         Dish dish;
-        ArrayList<Ingredient> ingredients;
+        Set<Ingredient> ingredients;
         try (Session session = ConnectionService.getSessionFactory().openSession()) {
             NativeQuery<Dish> query = session.createNativeQuery("SELECT * FROM Dishes WHERE id = :id", Dish.class);
             query.setParameter("id", id);
@@ -23,7 +25,7 @@ public class OrderConverter {
                     WHERE dish_id = :id
                     """, Ingredient.class);
             query2.setParameter("id", id);
-            ingredients = (ArrayList<Ingredient>) query2.getResultList();
+            ingredients = (Set<Ingredient>) query2.getResultStream().collect(Collectors.toSet());
         }
         return new Order(dish, ingredients);
     }

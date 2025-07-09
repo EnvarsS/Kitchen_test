@@ -8,14 +8,16 @@ import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class OrdersFormatterFabric {
 
-    private static ConcurrentHashMap<ArrayList<Ingredient>, Dish> dish_ingredients = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Set<Ingredient>, Dish> dish_ingredients = new ConcurrentHashMap<>();
 
-    public static Order getOrderByIngredients(ArrayList<Ingredient> ingredients) {
+    public static Order getOrderByIngredients(Set<Ingredient> ingredients) {
         Dish dish = dish_ingredients.get(ingredients);
         if(dish == null)
             return null;
@@ -24,19 +26,27 @@ public class OrdersFormatterFabric {
     }
 
     public static void initialize() {
-        AtomicInteger counter = new AtomicInteger(1);
-        try (Session session = ConnectionService.getSessionFactory().openSession()) {
-            NativeQuery<Dish> query1 = session.createNativeQuery("SELECT * FROM dishes WHERE id = :id", Dish.class);
-            query1.setParameter("id", counter.get());
-            Dish dish = query1.uniqueResult();
-            NativeQuery<Ingredient> query2 = session.createNativeQuery("""
-                    SELECT ingredients.* FROM ingredients
-                    JOIN dishes_ingredients di on ingredients.id = di.ingredient_id
-                    WHERE dish_id = :id
-                    """, Ingredient.class);
-            query2.setParameter("id", counter.getAndIncrement());
-            ArrayList<Ingredient> ingredients = (ArrayList<Ingredient>) query2.getResultList();
+    try (Session session = ConnectionService.getSessionFactory().openSession()) {
+        // Get all dishes
+        NativeQuery<Integer> dishIdsQuery = session.createNativeQuery("SELECT id FROM dishes", Integer.class);
+        List<Integer> dishIds = dishIdsQuery.getResultList();
+
+        for (Integer dishId : dishIds) {
+            NativeQuery<Dish> dishQuery = session.createNativeQuery("SELECT * FROM dishes WHERE id = :id", Dish.class);
+            dishQuery.setParameter("id", dishId);
+            Dish dish = dishQuery.uniqueResult();
+
+            NativeQuery<Ingredient> ingredientsQuery = session.createNativeQuery("""
+                SELECT ingredients.* FROM ingredients
+                JOIN dishes_ingredients di on ingredients.id = di.ingredient_id
+                WHERE dish_id = :id
+                ORDER BY ingredients.id
+                """, Ingredient.class);
+            ingredientsQuery.setParameter("id", dishId);
+            Set<Ingredient> ingredients = (Set<Ingredient>) ingredientsQuery.getResultStream().collect(Collectors.toSet());
+
             dish_ingredients.put(ingredients, dish);
         }
     }
+}
 }

@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class CompleteDishService {
     private static CompleteDishService instance;
@@ -26,7 +27,7 @@ public class CompleteDishService {
         ScrollPane boardScrollPane = (ScrollPane) boardVBox.getChildren().get(1);
 
         boardSubmitButton.setOnAction(e -> {
-            ArrayList<Ingredient> boardIngredients = BoardListService.getInstance().getIngredients();
+            Set<Ingredient> boardIngredients = BoardListService.getInstance().getIngredients();
 
             Order currentOrder = OrdersFormatterFabric.getOrderByIngredients(boardIngredients);
 
