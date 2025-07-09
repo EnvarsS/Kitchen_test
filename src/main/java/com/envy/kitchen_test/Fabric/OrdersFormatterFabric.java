@@ -36,7 +36,7 @@ public class OrdersFormatterFabric {
 
             if (inputIngredientIds.equals(dishIngredientIds)) {
                 System.out.println("Match found! Dish: " + entry.getValue().getName());
-                return new Order(entry.getValue(), (HashSet<Ingredient>) ingredients.stream().collect(Collectors.toSet()));
+                return new Order(entry.getValue(), entry.getKey());
             }
         }
 

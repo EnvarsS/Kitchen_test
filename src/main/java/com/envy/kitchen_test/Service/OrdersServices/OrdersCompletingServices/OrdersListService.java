@@ -4,6 +4,7 @@ import com.envy.kitchen_test.Model.Order;
 import com.envy.kitchen_test.Service.BoardServices.BoardListService;
 import com.envy.kitchen_test.Service.GameStatisticServices.CountingStatistic;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
@@ -32,14 +33,20 @@ public class OrdersListService {
 
     public void deleteRunningOrder(Order order) {
         System.out.println("Deleting order " + order);
+        if (order == null) {
+            System.out.println("order is null. There's no dish with this receipt");
+            return;
+        }
         synchronized (runningOrders) {
-            if (order == null) {
-                System.out.println("order is null. There's no dish with this receipt");
-                return;
-            }
-
+            Future<?> future = null;
             // Atomically remove and get the future
-            Future<?> future = runningOrders.remove(order);
+            for(Map.Entry<Order, Future<?>> entry : runningOrders.entrySet()){
+                if(entry.getKey().getDishName().equals(order.getDishName())){
+                    future = entry.getValue();
+                    runningOrders.remove(entry.getKey());
+                    break;
+                }
+            }
             System.out.println("Future " + future);
 
             if (future == null) {

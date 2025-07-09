@@ -8,10 +8,12 @@ public class Order {
 
     private static AtomicInteger idCounter = new AtomicInteger(0);
 
+    private int id;
     private Dish dish;
     private HashSet<Ingredient> ingredients;
 
     public Order(Dish dish, HashSet<Ingredient> ingredients) {
+        id = idCounter.incrementAndGet();
         this.dish = dish;
         this.ingredients = ingredients;
     }
@@ -32,13 +34,11 @@ public class Order {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        // Remove id from comparison - only compare dish and ingredients
-        return Objects.equals(dish, order.dish) && Objects.equals(ingredients, order.ingredients);
+        return id == order.id; // Compare by unique ID
     }
 
     @Override
     public int hashCode() {
-        // Remove id from hash code calculation
-        return Objects.hash(dish, ingredients);
+        return Objects.hash(id); // Hash by unique ID
     }
 }
