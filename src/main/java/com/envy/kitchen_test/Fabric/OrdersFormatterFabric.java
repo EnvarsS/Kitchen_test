@@ -7,28 +7,21 @@ import com.envy.kitchen_test.Service.UtilServices.ConnectionService;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class OrdersFormatterFabric {
 
-    private static final ConcurrentHashMap<ArrayList<Ingredient>, Dish> dish_ingredients = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<HashSet<Ingredient>, Dish> dish_ingredients = new ConcurrentHashMap<>();
 
-    public static Order getOrderByIngredients(ArrayList<Ingredient> ingredients) {
-        Stream<Ingredient> argumentListStream = ingredients.stream().sorted();
-        for (Map.Entry<ArrayList<Ingredient>, Dish> entry : dish_ingredients.entrySet()) {
-            ArrayList<Ingredient> checkIngredients = entry.getKey();
-            Stream<Ingredient> checkIngredientsStream = checkIngredients.stream().sorted();
-            if(checkIngredientsStream.equals(argumentListStream)) {
-                return new Order(dish_ingredients.get(checkIngredients), entry.getKey());
-            }
+    public static synchronized Order getOrderByIngredients(HashSet<Ingredient> ingredients) {
+        Dish dish = dish_ingredients.get(ingredients);
+        if (dish == null) {
+            return null;
         }
-        return null;
+        return new Order(dish, ingredients);
     }
 
     public static void initialize() {
@@ -49,7 +42,7 @@ public class OrdersFormatterFabric {
                         ORDER BY ingredients.id
                         """, Ingredient.class);
                 ingredientsQuery.setParameter("id", dishId);
-                ArrayList<Ingredient> ingredients = (ArrayList<Ingredient>) ingredientsQuery.getResultList();
+                HashSet<Ingredient> ingredients = (HashSet<Ingredient>) ingredientsQuery.getResultStream().collect(Collectors.toSet());
 
                 dish_ingredients.put(ingredients, dish);
             }

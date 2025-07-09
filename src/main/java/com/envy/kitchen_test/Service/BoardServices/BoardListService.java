@@ -4,13 +4,12 @@ import com.envy.kitchen_test.Model.Ingredient;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 public class BoardListService {
 
     private static BoardListService instance;
 
-    private final ArrayList<Ingredient> ingredients = new ArrayList<>();
+    private final HashSet<Ingredient> ingredients = new HashSet<>();
 
     public static BoardListService getInstance() {
         if(instance == null) {
@@ -33,7 +32,7 @@ public class BoardListService {
         ingredients.clear();
     }
 
-    public ArrayList<Ingredient> getIngredients() {
+    public HashSet<Ingredient> getIngredients() {
         return ingredients;
     }
 

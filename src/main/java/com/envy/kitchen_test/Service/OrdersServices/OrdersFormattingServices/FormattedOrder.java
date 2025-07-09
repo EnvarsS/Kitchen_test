@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 public class FormattedOrder implements Runnable {
     private final HBox parentHBox;
     private final Order order;
+
     public FormattedOrder(HBox parentHBox, Order order) {
         this.parentHBox = parentHBox;
         this.order = order;
@@ -20,15 +21,14 @@ public class FormattedOrder implements Runnable {
         Platform.runLater(() -> parentHBox.getChildren().add(orderView));
 
         try {
-            for(int i = 0; i < 100; i++){
+            for (int i = 0; i < 100; i++) {
                 Thread.sleep(100);
             }
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
             Platform.runLater(() -> parentHBox.getChildren().remove(orderView));
-            System.out.println("thread " + Thread.currentThread().getName() + " interrupted");
+            OrdersListService.getInstance().deleteRunningOrder(order);
         }
-
-        Platform.runLater(() -> parentHBox.getChildren().remove(orderView));
-        OrdersListService.getInstance().deleteRunningOrder(order);
     }
 }

@@ -1,9 +1,6 @@
 package com.envy.kitchen_test.Model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -12,9 +9,9 @@ public class Order {
     private static AtomicInteger idCounter = new AtomicInteger(0);
 
     private Dish dish;
-    private ArrayList<Ingredient> ingredients;
+    private HashSet<Ingredient> ingredients;
 
-    public Order(Dish dish, ArrayList<Ingredient> ingredients) {
+    public Order(Dish dish, HashSet<Ingredient> ingredients) {
         this.dish = dish;
         this.ingredients = ingredients;
     }
@@ -27,7 +24,7 @@ public class Order {
         return (ArrayList<String>) ingredients.stream().map(Ingredient::getName).collect(Collectors.toList());
     }
 
-    public ArrayList<Ingredient> getIngredientsAsSet() {
+    public HashSet<Ingredient> getIngredientsAsSet() {
         return ingredients;
     }
 

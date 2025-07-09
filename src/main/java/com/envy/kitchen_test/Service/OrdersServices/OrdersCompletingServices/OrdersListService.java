@@ -27,7 +27,7 @@ public class OrdersListService {
         return runningOrders;
     }
 
-    public void deleteRunningOrder(Order order) {
+    public synchronized void deleteRunningOrder(Order order) {
     if(order == null) {
         System.out.println("order is null. There's no dish with this receipt");
         return;
@@ -42,9 +42,13 @@ public class OrdersListService {
     }
 
     try {
-        future.cancel(true);
-        CountingStatistic.getInstance().increment();
-        System.out.println("Order completed successfully: " + order.toString());
+        boolean cancelled = future.cancel(true);
+        if (cancelled || future.isDone()) {
+            CountingStatistic.getInstance().increment();
+            System.out.println("Order completed successfully: " + order.getDishName());
+        } else {
+            System.out.println("Failed to cancel order: " + order.getDishName());
+        }
     } catch (Exception e) {
         e.printStackTrace();
         System.out.println("Order: " + order.toString() + " failed");
