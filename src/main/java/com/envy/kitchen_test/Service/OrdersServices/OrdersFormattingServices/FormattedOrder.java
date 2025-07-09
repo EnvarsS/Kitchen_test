@@ -25,10 +25,10 @@ public class FormattedOrder implements Runnable {
                 Thread.sleep(100);
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
             Platform.runLater(() -> parentHBox.getChildren().remove(orderView));
             OrdersListService.getInstance().deleteRunningOrder(order);
         }
+        Platform.runLater(() -> parentHBox.getChildren().remove(orderView));
+        OrdersListService.getInstance().deleteRunningOrder(order);
     }
 }

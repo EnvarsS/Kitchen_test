@@ -2,10 +2,12 @@ package com.envy.kitchen_test.Controller;
 
 
 import com.envy.kitchen_test.Service.BoardServices.CompleteDishService;
+import com.envy.kitchen_test.Service.GameStatisticServices.CountingStatistic;
 import com.envy.kitchen_test.Service.IngredientsServices.IngredientChooseHandleService;
 import com.envy.kitchen_test.Service.OrdersServices.OrdersFormattingServices.OrderEngine;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -27,6 +29,9 @@ public class KitchenController implements Initializable {
 
     @FXML
     private VBox BreadVBox;
+
+    @FXML
+    private Label counter;
 
     @FXML
     private VBox CheeseVBox;
@@ -59,6 +64,7 @@ public class KitchenController implements Initializable {
         IngredientChooseHandleService.getInstance().initializeButtons(vboxList, BoardVBox);
 
         CompleteDishService.getInstance().initiateDishSubmitButton(BoardVBox);
+        CountingStatistic.getInstance().initialize(counter);
     }
 
 }

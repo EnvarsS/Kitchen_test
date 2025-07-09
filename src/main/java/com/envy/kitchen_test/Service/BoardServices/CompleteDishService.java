@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CompleteDishService {
     private static CompleteDishService instance;
@@ -28,7 +29,8 @@ public class CompleteDishService {
         ScrollPane boardScrollPane = (ScrollPane) boardVBox.getChildren().get(1);
 
         boardSubmitButton.setOnAction(e -> {
-            HashSet<Ingredient> boardIngredients = BoardListService.getInstance().getIngredients();
+            ArrayList<Ingredient> boardIngredients = (ArrayList<Ingredient>) BoardListService.getInstance().getIngredients().stream().collect(Collectors.toList());
+            System.out.println("Board - " + boardIngredients);
             VBox container = (VBox) boardScrollPane.getContent();
             container.getChildren().clear();
             BoardListService.getInstance().clearIngredients();

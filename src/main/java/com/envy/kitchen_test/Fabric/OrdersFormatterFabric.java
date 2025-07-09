@@ -16,12 +16,32 @@ public class OrdersFormatterFabric {
 
     private static final ConcurrentHashMap<HashSet<Ingredient>, Dish> dish_ingredients = new ConcurrentHashMap<>();
 
-    public static synchronized Order getOrderByIngredients(HashSet<Ingredient> ingredients) {
-        Dish dish = dish_ingredients.get(ingredients);
-        if (dish == null) {
-            return null;
+    public static synchronized Order getOrderByIngredients(ArrayList<Ingredient> ingredients) {
+        System.out.println("Input ingredients: " + ingredients);
+
+        // Manual comparison by ingredient IDs
+        Set<Integer> inputIngredientIds = ingredients.stream()
+            .map(Ingredient::getId)
+            .collect(Collectors.toSet());
+
+        System.out.println("Input ingredient IDs: " + inputIngredientIds);
+
+        for (Map.Entry<HashSet<Ingredient>, Dish> entry : dish_ingredients.entrySet()) {
+            Set<Integer> dishIngredientIds = entry.getKey().stream()
+                .map(Ingredient::getId)
+                .collect(Collectors.toSet());
+
+            System.out.println("Comparing with dish: " + entry.getValue().getName() +
+                             " IDs: " + dishIngredientIds);
+
+            if (inputIngredientIds.equals(dishIngredientIds)) {
+                System.out.println("Match found! Dish: " + entry.getValue().getName());
+                return new Order(entry.getValue(), (HashSet<Ingredient>) ingredients.stream().collect(Collectors.toSet()));
+            }
         }
-        return new Order(dish, ingredients);
+
+        System.out.println("No matching dish found");
+        return null;
     }
 
     public static void initialize() {
